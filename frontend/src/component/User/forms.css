@@ -1,6 +1,5 @@
 .Login-container , .Register-container{
     margin: 0 auto;
-    border: 2px solid red;
     min-height: 80vh;
 }
 
