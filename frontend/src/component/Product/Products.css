@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   padding: 0 5vmax;
   justify-content: center;
-  min-height: 30vh;
+  min-height: 65vh;
 }
 
 .paginationBox {
@@ -121,5 +121,9 @@
   .productsHeading{
   font-size: 4vmax;
   right: 5vmax;
+  }
+
+  .products{
+    min-height: 30vh;
   }
 }

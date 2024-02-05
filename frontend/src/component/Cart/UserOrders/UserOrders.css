@@ -1,5 +1,5 @@
 .orders-container{
-    min-height: 50vh;
+    min-height: 65vh;
 }
 .fields{
     display: flex;
@@ -37,3 +37,4 @@
 .order-id{
     padding-left: 1vmax;
 }
+

@@ -90,9 +90,9 @@
     background-color: rgb(31, 31, 31);
   }
   
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     .profileContainer {
-      flex-direction: column;
+      flex-direction: column;   
     }
   
     .profileContainer > div:first-child > h1 {

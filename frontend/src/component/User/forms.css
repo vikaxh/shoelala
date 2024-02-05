@@ -1,5 +1,7 @@
 .Login-container , .Register-container{
     margin: 0 auto;
+    border: 2px solid red;
+    min-height: 80vh;
 }
 
 
@@ -123,7 +125,11 @@
     }
 
     .Login-container , .Register-container{
-        height: 100vmin;
+        min-height: 70vh;
+    }
+
+    .Login-btn , .Register-btn{
+        font-size: 2.5vmax;
     }
   }
   
