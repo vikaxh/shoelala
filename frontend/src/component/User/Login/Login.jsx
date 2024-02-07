@@ -20,6 +20,7 @@ const Login = () => {
   const { isAuthenticated, loading, error } = useSelector((state) => state.user);
   const redirect = location.search ? location.search.split("=")[1] : "account";
   useEffect(() => {
+    
     if(error){
       toast.error(error)
       dispatch(clearUserErrors());
@@ -27,6 +28,10 @@ const Login = () => {
     if (isAuthenticated) {
       if(redirect === "account")toast.success("Logged In")
       navigate(`/${redirect}`);
+    }
+    else{
+      toast("you can use the credentials to use the admin feature. Please Don't tamper the data with bad intentions ", { duration: 6000});
+      toast("email: testing@gmail.com , password: Password  ", { duration: 7000});
     }
   }, [dispatch,redirect, isAuthenticated, navigate, error]);
 
