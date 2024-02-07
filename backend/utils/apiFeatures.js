@@ -5,7 +5,7 @@ class ApiFeatures{
     }
 
     search(){
-        console.log(this.queryParams.keyword);
+        
         const keyword = this.queryParams.keyword ? {
             name:{
                 $regex: this.queryParams.keyword,

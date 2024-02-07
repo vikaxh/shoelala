@@ -44,6 +44,15 @@ export const getProducts =
         link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
       const { data } = await axios.get(link);
+      
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        data.products = [...array]
+      }
+      shuffleArray(data.products);
       dispatch(allProductSucces(data));
     } catch (error) {
       const payload = error.response.data.message;

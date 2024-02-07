@@ -53,7 +53,7 @@ const Products = () => {
         <Loading />
       ) : (
         <Fragment>
-          <MetaData title="PRODUCTS -- ECOMMERCE" />
+          <MetaData title="PRODUCTS " />
           <h1 className="productsHeading">Products</h1>
 
           <div className="products">

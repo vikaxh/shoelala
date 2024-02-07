@@ -51,10 +51,10 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   let images = [];
   
   if (typeof req.body.images === "string") {
-    console.log("simgle image");
+    
     images.push(req.body.images);
   } else {
-    console.log("multiple images");
+    
     images = req.body.images;
   }
   
