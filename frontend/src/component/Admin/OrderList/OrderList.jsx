@@ -7,15 +7,15 @@ import MetaData from "../../layout/Helmets/MetaData.jsx";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SideBar from "../Sidebar/Sidebar.jsx";
-import { clearErrors } from "../../../reducers/Error Slice/ErrorSlice.js";
 import { deleteOrder, getAllAdminOrders } from "../../../actions/orderActions.js";
-import { deleteOrderStatusReset } from "../../../reducers/Order Slice/deleteOrderSlice.js";
+import { clearDeleteOrderErrors, deleteOrderStatusReset } from "../../../reducers/Order Slice/deleteOrderSlice.js";
 import Loading from "../../layout/Loading/Loading.jsx";
+import toast from "react-hot-toast";
 
 const OrderList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { error ,orders, loading } = useSelector((state) => state.orders);
+  const { orders, loading } = useSelector((state) => state.orders);
 
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.deleteOrder
@@ -28,24 +28,21 @@ const OrderList = () => {
 
 
   useEffect(() => {
-    if (error) {
-      alert(error);
-      dispatch(clearErrors());
-    }
+    
 
     if (deleteError) {
-      alert(deleteError);
-      dispatch(clearErrors());
+      toast.error(deleteError);
+      dispatch(clearDeleteOrderErrors());
     }
 
     if (isDeleted) {
-      alert("Order Deleted Successfully");
+      toast.success("Order Deleted Successfully");
       navigate("/admin/orders");
       dispatch(deleteOrderStatusReset());
     }
 
     dispatch(getAllAdminOrders());
-  }, [dispatch, error, deleteError, isDeleted, navigate]);
+  }, [dispatch, deleteError, isDeleted, navigate]);
 
 
 
@@ -136,6 +133,11 @@ const OrderList = () => {
               disableSelectionOnClick
               className="productListTable"
               autoHeight
+              initialState={{
+                ...rows.initialState,
+                pagination: { paginationModel: { pageSize: 10 } },
+              }}
+              pageSizeOptions={[5, 10, 25]}
             />
           </div>
         </div>

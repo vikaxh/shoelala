@@ -55,7 +55,6 @@ const userSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = false;
       state.user = null;
-      state.error = action.payload;
     },
     logoutSuccess: (state, action) => {
       state.loading = false;
@@ -78,10 +77,10 @@ const userSlice = createSlice({
 
     updateFail: (state, action) => {
       state.loading = false;
-      state.isUpdated = action.payload;
+      state.isUpdated = false;
       state.error = action.payload;
     },
-    updateReset:(state , action) => {
+    updateReset: (state, action) => {
       state.isUpdated = false;
     },
     updatePasswordRequest: (state, action) => {
@@ -95,12 +94,15 @@ const userSlice = createSlice({
 
     updatePasswordFail: (state, action) => {
       state.loading = false;
-      state.isUpdated = action.payload;
+      state.isUpdated = false;
       state.error = action.payload;
     },
-    updatePasswordReset:(state , action) => {
+    updatePasswordReset: (state, action) => {
       state.isUpdated = false;
-    }
+    },
+    clearUserErrors: (state,action) => {
+      state.error = null
+  }
   },
 });
 
@@ -123,6 +125,7 @@ export const {
   updatePasswordFail,
   updatePasswordRequest,
   updatePasswordReset,
-  updatePasswordSuccess
+  updatePasswordSuccess,
+  clearUserErrors,
 } = userSlice.actions;
 export default userSlice.reducer;

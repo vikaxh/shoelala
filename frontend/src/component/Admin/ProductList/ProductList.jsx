@@ -9,14 +9,14 @@ import MetaData from "../../layout/Helmets/MetaData.jsx";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SideBar from "../Sidebar/Sidebar.jsx";
-import { deleteProductStatusReset } from "../../../reducers/Product Slice/deleteProductSlice.js";
-import { clearErrors } from "../../../reducers/Error Slice/ErrorSlice.js";
+import { clearDeleteErrors, deleteProductStatusReset } from "../../../reducers/Product Slice/deleteProductSlice.js";
 import Loading from "../../layout/Loading/Loading.jsx";
+import toast from "react-hot-toast";
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { error ,products, loading } = useSelector((state) => state.products);
+  const { products, loading } = useSelector((state) => state.products);
 
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.deleteProduct
@@ -31,24 +31,20 @@ const ProductList = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (error) {
-      alert(error);
-      dispatch(clearErrors());
-    }
 
     if (deleteError) {
-      alert(deleteError);
-      dispatch(clearErrors());
+      toast.error(deleteError);
+      dispatch(clearDeleteErrors());
     }
 
     if (isDeleted) {
-      alert("Product Deleted Successfully");
+      toast.success("Product Deleted Successfully");
       navigate("/admin/dashboard");
       dispatch(deleteProductStatusReset());
     }
 
     dispatch(getAdminProducts());
-  }, [dispatch, error, deleteError, isDeleted, navigate]);
+  }, [dispatch, deleteError, isDeleted, navigate]);
 
 
 
@@ -135,6 +131,11 @@ const ProductList = () => {
             disableSelectionOnClick
             className="productListTable"
             autoHeight
+            initialState={{
+              ...rows.initialState,
+              pagination: { paginationModel: { pageSize: 10 } },
+            }}
+            pageSizeOptions={[5, 10, 25]}
           />
         </div>
       </div>

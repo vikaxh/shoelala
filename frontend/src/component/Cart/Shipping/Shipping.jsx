@@ -5,6 +5,7 @@ import { saveTheShippingInfo } from "../../../actions/cartActions";
 import MetaData from "../../layout/Helmets/MetaData"
 import { Country, State } from "country-state-city";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Shipping = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Shipping = () => {
     event.preventDefault();
 
     if (phoneNumber.length < 10 || phoneNumber.length > 10) {
-      alert("Phone Number should be 10 digits Long");
+      toast.error("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(

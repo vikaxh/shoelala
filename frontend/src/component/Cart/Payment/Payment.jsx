@@ -10,6 +10,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import toast from "react-hot-toast"
 
 import axios from "axios";
 import "./Payment.css";
@@ -17,6 +18,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard.js";
 import EventIcon from "@mui/icons-material/Event.js";
 import VpnKeyIcon from "@mui/icons-material/VpnKey.js";
 import { createOrder } from "../../../actions/orderActions.js";
+import { ClearErrors } from "../../../reducers/Order Slice/newOrderSlice.js";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -86,8 +88,9 @@ const Payment = () => {
 
       if (result.error) {
         payBtn.current.disabled = false;
-
-        alert(result.error.message);
+        if(result.error.message === "As per Indian regulations, export transactions require a description. More info here: https://stripe.com/docs/india-exports")
+        toast.error("Please Use Indian Stripe Card Number For example 4000003560000008");
+        
       } else {
         if (result.paymentIntent.status === "succeeded") {
           order.paymentInfo = {
@@ -99,18 +102,19 @@ const Payment = () => {
 
           navigate("/success");
         } else {
-          alert("There's some issue while processing payment ");
+          toast.error("There's some issue while processing payment ");
         }
       }
     } catch (error) {
       payBtn.current.disabled = false;
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.error(error);
+      dispatch(ClearErrors());
       
     }
   }, [dispatch, error]);

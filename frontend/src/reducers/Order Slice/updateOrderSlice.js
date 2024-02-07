@@ -23,6 +23,9 @@ const updateOrderSlice = createSlice({
         updateOrderStatusReset : (state , action) => {
             state.isUpdated = false
         },
+        clearUpdateOrderErrors : (state ,action) => {
+            state.error = null
+        }
         
     }
 });
@@ -30,5 +33,5 @@ const updateOrderSlice = createSlice({
 
 
 
-export const {updateOrderFail,updateOrderRequest,updateOrderSuccess,updateOrderStatusReset} = updateOrderSlice.actions;
+export const {clearUpdateOrderErrors,updateOrderFail,updateOrderRequest,updateOrderSuccess,updateOrderStatusReset} = updateOrderSlice.actions;
 export default updateOrderSlice.reducer;

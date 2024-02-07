@@ -16,6 +16,7 @@ function Home() {
     const [homeProducts , setHomeProducts] = useState([]);
 
     const getProductsData = async() => {
+      
         let link = `/api/v1/products?page=${currentPage}`
         const {data} = await axios.get(link);
         const nextProducts = data.products;

@@ -11,14 +11,15 @@ import StorageIcon from "@mui/icons-material/Storage";
 import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SideBar from "../Sidebar/Sidebar";
-import { createProductUpdateReset } from "../../../reducers/Product Slice/createProductSlice";
+import { clearCreateProductErrors, createProductUpdateReset } from "../../../reducers/Product Slice/createProductSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../layout/Loading/Loading";
+import toast from "react-hot-toast";
 const NewProduct = () => {  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, success } = useSelector((state) => state.createProduct);
+  const { loading, success,error } = useSelector((state) => state.createProduct);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -40,13 +41,16 @@ const NewProduct = () => {
 
   useEffect(() => {
     
-
+    if (error) {
+      toast.error(error);
+      dispatch(clearCreateProductErrors());
+    }
     if (success) {
-      alert("Product Created Successfully");
+      toast.success("Product Created Successfully");
       navigate("/admin/dashboard");
       dispatch(createProductUpdateReset());
     }
-  }, [dispatch,navigate, success]);
+  }, [dispatch,navigate, success,error]);
 
   const createProductSubmitHandler = (event) => {
     event.preventDefault();

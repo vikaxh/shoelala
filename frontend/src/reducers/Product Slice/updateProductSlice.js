@@ -23,6 +23,9 @@ const updateProductSlice = createSlice({
         updateProductStatusReset : (state , action) => {
             state.isUpdated = false
         },
+        clearUpdateErrors : (state,action) => {
+            state.error = null
+        }
         
     }
 });
@@ -30,5 +33,5 @@ const updateProductSlice = createSlice({
 
 
 
-export const {updateProductFail,updateProductRequest,updateProductStatusReset,updateProductSuccess} = updateProductSlice.actions;
+export const {clearUpdateErrors,updateProductFail,updateProductRequest,updateProductStatusReset,updateProductSuccess} = updateProductSlice.actions;
 export default updateProductSlice.reducer;

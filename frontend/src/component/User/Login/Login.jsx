@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "../../layout/Loading/Loading";
 import MetaData from "../../layout/Helmets/MetaData";
+import toast from "react-hot-toast";
+
+import { clearUserErrors } from "../../../reducers/User Slice/UserSlice";
 const Login = () => {
   const [user, setUser] = useState({ email: "", password: "" });
 
@@ -14,13 +17,18 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { isAuthenticated, loading } = useSelector((state) => state.user);
+  const { isAuthenticated, loading, error } = useSelector((state) => state.user);
   const redirect = location.search ? location.search.split("=")[1] : "account";
   useEffect(() => {
+    if(error){
+      toast.error(error)
+      dispatch(clearUserErrors());
+    }
     if (isAuthenticated) {
+      if(redirect === "account")toast.success("Logged In")
       navigate(`/${redirect}`);
     }
-  }, [redirect, isAuthenticated, navigate]);
+  }, [dispatch,redirect, isAuthenticated, navigate, error]);
 
   const changeHandler = (event) => {
     let { name, value } = event.target;

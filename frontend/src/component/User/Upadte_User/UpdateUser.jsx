@@ -7,11 +7,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { profileImages } from "../profileIcons";
 import defaultProfile from "../../../images/Profile.png";
-import { updateReset } from "../../../reducers/User Slice/UserSlice";
+import { clearUserErrors, updateReset } from "../../../reducers/User Slice/UserSlice";
 import Loading from "../../layout/Loading/Loading";
+import toast from "react-hot-toast";
 
 const UpdateUser = () => {
-  const { user, isUpdated , loading} = useSelector((state) => state.user);
+  const { user, isUpdated , loading, error} = useSelector((state) => state.user);
   const [currentUserDetails, setcurrentUserDetails] = useState({ ...user });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,10 +21,16 @@ const UpdateUser = () => {
     if (isUpdated) {
       dispatch(loadUser());
       navigate("/account");
+      toast.success("User Updated")
+      dispatch(updateReset());
+    }
+    if(error){
+      toast.error(error);
+      dispatch(clearUserErrors());
     }
 
-    dispatch(updateReset());
-  }, [isUpdated, navigate, dispatch]);
+    
+  }, [isUpdated, navigate, dispatch,error]);
 
   const changeHandler = (event) => {
     let { name, value } = event.target;

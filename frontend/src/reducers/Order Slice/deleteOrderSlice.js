@@ -24,10 +24,13 @@ const deleteOrderSlice = createSlice({
         deleteOrderStatusReset : (state , action) => {
             state.isDeleted = false
         },
+        clearDeleteOrderErrors: (state , action) => {
+            state.error = null
+        }
         
     }
 });
 
 
-export const {deleteOrderFail,deleteOrderRequest,deleteOrderSuccess,deleteOrderStatusReset} = deleteOrderSlice.actions;
+export const {clearDeleteOrderErrors,deleteOrderFail,deleteOrderRequest,deleteOrderSuccess,deleteOrderStatusReset} = deleteOrderSlice.actions;
 export default deleteOrderSlice.reducer;

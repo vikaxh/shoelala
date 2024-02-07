@@ -9,12 +9,12 @@ import StorageIcon from "@mui/icons-material/Storage";
 import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SideBar from "../Sidebar/Sidebar";
-import { updateProductStatusReset } from "../../../reducers/Product Slice/updateProductSlice.js";
-import { useNavigate } from "react-router-dom";
-import { clearErrors } from "../../../reducers/Error Slice/ErrorSlice.js";
+import { clearUpdateErrors, updateProductStatusReset } from "../../../reducers/Product Slice/updateProductSlice.js";
+import { useNavigate } from "react-router-dom"; 
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../../actions/productActions.js";
 import Loading from "../../layout/Loading/Loading.jsx";
+import toast from "react-hot-toast";
 
 const UpdateProduct = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const UpdateProduct = ({ history, match }) => {
   const params = useParams();
   
 
-  const { error, product } = useSelector((state) => state.productDetails);
+  const {  product } = useSelector((state) => state.productDetails);
 
   const {
     loading,
@@ -63,24 +63,20 @@ const UpdateProduct = ({ history, match }) => {
       setStock(product.stock);
       setOldImages(product.images);
     }
-    if (error) {
-      alert(error);
-      dispatch(clearErrors());
-    }
+    
 
     if (updateError) {
-      alert(updateError);
-      dispatch(clearErrors());
+      toast.error(updateError);
+      dispatch(clearUpdateErrors());
     }
 
     if (isUpdated) {
-      alert("Product Updated Successfully");
+      toast.success("Product Updated Successfully");
       navigate("/admin/products");
       dispatch(updateProductStatusReset());
     }
   }, [
     dispatch,
-    error,
     isUpdated,
     productId,
     product,

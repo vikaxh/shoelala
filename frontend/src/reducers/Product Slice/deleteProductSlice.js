@@ -24,6 +24,9 @@ const deleteProductSlice = createSlice({
         deleteProductStatusReset : (state , action) => {
             state.isDeleted = false
         },
+        clearDeleteErrors : (state,action) => {
+            state.error = null
+        }
         
     }
 });
@@ -31,5 +34,5 @@ const deleteProductSlice = createSlice({
 
 
 
-export const {deleteProductFail,deleteProductRequest,deleteProductStatusReset,deleteProductSuccess} = deleteProductSlice.actions;
+export const {clearDeleteErrors, deleteProductFail,deleteProductRequest,deleteProductStatusReset,deleteProductSuccess} = deleteProductSlice.actions;
 export default deleteProductSlice.reducer;

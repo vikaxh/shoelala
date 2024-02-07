@@ -37,7 +37,8 @@ const productSlice = createSlice({
         allAdminProductFail : (state , action) => {
             state.loading = false
             state.error = action.payload
-        }
+        },
+        
     }
 });
 

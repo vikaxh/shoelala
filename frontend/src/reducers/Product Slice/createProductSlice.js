@@ -20,9 +20,12 @@ const createProductSlice = createSlice({
         },
         createProductUpdateReset: (state,action) => {
             state.success = false
-        }
+        },
+        clearCreateProductErrors: (state ,action) => {
+            state.error = null
+        },
     }
 })
 
-export const {createProductFail,createProductRequest,createProductSuccess,createProductUpdateReset} = createProductSlice.actions;
+export const {clearCreateProductErrors,createProductFail,createProductRequest,createProductSuccess,createProductUpdateReset} = createProductSlice.actions;
 export default createProductSlice.reducer;

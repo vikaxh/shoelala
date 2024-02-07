@@ -9,9 +9,9 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { Button } from '@mui/material';
 import "./processOrder.css";
 import { useParams } from "react-router-dom";
-import { updateOrderStatusReset } from "../../../reducers/Order Slice/updateOrderSlice";
+import { clearUpdateOrderErrors, updateOrderStatusReset } from "../../../reducers/Order Slice/updateOrderSlice";
 import Loading from "../../layout/Loading/Loading";
-import { clearErrors } from "../../../reducers/Error Slice/ErrorSlice";
+import toast from "react-hot-toast";
 
 
 const ProcessOrder = () => {
@@ -20,7 +20,7 @@ const ProcessOrder = () => {
   const params = useParams();
   const {id} = params;
 
-  const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const { order, loading } = useSelector((state) => state.orderDetails);
   const { error: updateError, isUpdated } = useSelector((state) => state.updateOrder);
   console.log(order);
 
@@ -38,21 +38,18 @@ const ProcessOrder = () => {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    if (error) {
-      alert(error);
-      dispatch(clearErrors());
-    }
+    
     if (updateError) {
-      alert(updateError);
-      dispatch(clearErrors());
+      toast.error(updateError);
+      dispatch(clearUpdateOrderErrors());
     }
     if (isUpdated) {
-      alert("Order Updated Successfully");
+      toast.success("Order Updated Successfully");
       dispatch(updateOrderStatusReset());
     }
 
     dispatch(getOrderDetails(params));
-  }, [dispatch, error, isUpdated, updateError,params]);
+  }, [dispatch, isUpdated, updateError,params]);
 
   return (
     <Fragment>

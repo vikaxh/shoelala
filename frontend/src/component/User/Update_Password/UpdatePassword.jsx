@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser, updatePassword } from "../../../actions/userActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { updatePasswordReset } from "../../../reducers/User Slice/UserSlice";
+import { clearUserErrors, updatePasswordReset, updateReset } from "../../../reducers/User Slice/UserSlice";
 import Loading from "../../layout/Loading/Loading";
+import toast from "react-hot-toast";
+
 
 const UpdatePassword = () => {
-  const { isUpdated, loading } = useSelector((state) => state.user);
+  const { isUpdated, loading, error } = useSelector((state) => state.user);
   const [ passwords, setPasswords ] = useState({
     oldPassword: "",
     newPassword: "",
@@ -22,10 +24,16 @@ const UpdatePassword = () => {
     if (isUpdated) {
       dispatch(loadUser());
       navigate("/account");
+      toast.success("User Updated")
+      dispatch(updateReset());
+    }
+    if(error){
+      toast.error(error);
+      dispatch(clearUserErrors());
     }
 
     dispatch(updatePasswordReset());
-  }, [isUpdated, navigate, dispatch]);
+  }, [isUpdated, navigate, dispatch,error]);
 
   const changeHandler = (event) => {
     let { name, value } = event.target;

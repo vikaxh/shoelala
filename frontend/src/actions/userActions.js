@@ -19,6 +19,7 @@ import {
   updatePasswordFail,
 } from "../reducers/User Slice/UserSlice";
 
+
 export const loginUser = (user) => async (dispatch) => {
   try {
     dispatch(loginRequest());
@@ -94,3 +95,5 @@ export const updatePassword = (passwords) => async (dispatch) => {
     dispatch(updatePasswordFail(payload));
   }
 };
+
+

@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const clearErrorsSlice = createSlice({
     name: "clearErrors",
     initialState: {
+        error: null 
     },
     reducers: {
         clearErrors: (state,action) => {
-            console.log("Clearing error");
             state.error = null
         }
     }

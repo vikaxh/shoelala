@@ -8,23 +8,31 @@ import { useNavigate } from "react-router-dom";
 import { profileImages } from "../profileIcons";
 import defaultProfile from "../../../images/Profile.png";
 import MetaData from "../../layout/Helmets/MetaData";
+import Loading from "../../layout/Loading/Loading.jsx";
+import { clearUserErrors } from "../../../reducers/User Slice/UserSlice.js";
+import toast from "react-hot-toast";
 
 const Register = ()=> {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
-    avatar: "",
+    avatar: "https://res.cloudinary.com/dga6havun/image/upload/v1704269992/profileIcons/profile1_jywzgd.png",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated , loading, error } = useSelector((state) => state.user);
   useEffect(() => {
+    if(error){
+      if(error.substring(0,6) === "E11000")toast.error("User Already Exists");
+      else toast.error(error);
+      dispatch(clearUserErrors());
+    }
     if (isAuthenticated) {
       navigate("/account");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate,error,dispatch]);
 
   const changeHandler = (event) => {
     let { name, value } = event.target;
@@ -43,9 +51,12 @@ const Register = ()=> {
 
   return (
     <Fragment>
+      {
+        loading ? <Loading/>: 
+        <Fragment>
       <MetaData title="Sign up"/>
       <div className="Register-container">
-      {console.log(user)}
+      
       <h1 className="form-heading">Create your account</h1>
       <form className="Register-form" onSubmit={createUser}>
         <input
@@ -103,6 +114,8 @@ const Register = ()=> {
         </Link>
       </form>
     </div>
+    </Fragment>
+      }
     </Fragment>
   );
 }

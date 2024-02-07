@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.160.239:4000",
+  "proxy": "http://192.168.0.100:4000",
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.14.0",
@@ -23,6 +23,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
     "react-js-pagination": "^3.0.3",
     "react-loader-spinner": "^5.4.5",

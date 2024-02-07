@@ -17,12 +17,15 @@ const newOrderSlice = createSlice({
     createOrderFail : (state , action) => {
         state.loading = false
         state.error = action.payload
+    },
+    ClearErrors : (state,action) => {
+      state.error = null
     }
 
   },
 });
 
-export const {createOrderFail , createOrderRequest , createOrderSuccess} = newOrderSlice.actions;
+export const {ClearErrors,createOrderFail , createOrderRequest , createOrderSuccess} = newOrderSlice.actions;
 export default newOrderSlice.reducer;
 
 
