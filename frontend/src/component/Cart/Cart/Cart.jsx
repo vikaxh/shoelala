@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../layout/Loading/Loading.jsx";
 import MetaData from "../../layout/Helmets/MetaData.jsx";
 
+
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,15 +23,18 @@ const Cart = () => {
     if (stock <= quantity) {
       return;
     }
+    console.log(newQty);
     dispatch(addItemsTocart(id, newQty));
-  };
+    
+};
 
-  const decreaseQuantity = (id, quantity) => {
-    const newQty = quantity - 1;
-    if (1 >= quantity) {
-      return;
-    }
-
+const decreaseQuantity = (id, quantity) => {
+  const newQty = quantity - 1;
+  if (1 >= quantity) {
+    return;
+  }
+  console.log(newQty);
+    
     dispatch(addItemsTocart(id, newQty));
   };
 
@@ -81,7 +85,7 @@ const Cart = () => {
                           >
                             -
                           </button>
-                          <span>{item.quantity}</span>
+                          <input type="number" className="span" value={item.quantity} readOnly />
                           <button
                             onClick={() =>
                               increaseQuantity(

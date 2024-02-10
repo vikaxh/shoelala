@@ -1,6 +1,7 @@
 import React from 'react'
 import "./cartItemCard.css";
 import { Link } from 'react-router-dom';
+import toast from "react-hot-toast"
 
 const CartItemCard = ({item , deleteCartItems}) => {
   return (
@@ -9,7 +10,9 @@ const CartItemCard = ({item , deleteCartItems}) => {
     <div>
       <Link to={`/product/${item.product}`}>{item.name}</Link>
       <span>{`Price: ₹${item.price}`}</span>
-      <p onClick={() => deleteCartItems(item.product)}>remove</p>
+      <p onClick={() => {
+        toast.success("Item removed from cart")
+        deleteCartItems(item.product)}}>remove</p>
     </div>
    </div>
   )

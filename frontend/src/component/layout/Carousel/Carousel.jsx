@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiArrowCircleRight, HiArrowCircleLeft } from "react-icons/hi";
 import "./Carousel.css";
+import { useEffect } from "react";
 
 const Carousel = ({ images }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -15,6 +16,16 @@ const Carousel = ({ images }) => {
       return currentSlide > 0 ? currentSlide - 1 : images.length - 1;
     });
   };
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setCurrentSlide((currentSlide) => (currentSlide + 1) % images.length);   
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+}, [currentSlide , images]);
 
   return (
     <div className="carousel">

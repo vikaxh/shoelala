@@ -18,9 +18,12 @@ const createReviewSlice = createSlice({
         },
         createReviewStatusReset : (state , action ) => {
             state.success = false
+        },
+        clearCreateReviewErrors : (state , action) => {
+            state.error = null;
         }
     }
 });
 
-export const {createReviewFail , createReviewRequest , createReviewSuccess , createReviewStatusReset} = createReviewSlice.actions;
+export const {clearCreateReviewErrors,createReviewFail , createReviewRequest , createReviewSuccess , createReviewStatusReset} = createReviewSlice.actions;
 export default createReviewSlice.reducer;

@@ -9,8 +9,8 @@ import ReviewCard from "./ReviewCard";
 import "../Product/productDetails.css";
 import Loading from "../layout/Loading/Loading";
 import { addItemsTocart } from "../../actions/cartActions";
-import { clearErrors } from "../../reducers/Error Slice/ErrorSlice";
-import { createReviewStatusReset } from "../../reducers/Product Slice/createReviewSlice";
+import { clearCreateReviewErrors, createReviewStatusReset } from "../../reducers/Product Slice/createReviewSlice";
+
 
 import {
   Dialog,
@@ -20,6 +20,7 @@ import {
   Button,
 } from "@mui/material";
 import { Rating } from '@mui/material';
+import toast from "react-hot-toast";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -56,12 +57,12 @@ const ProductDetails = () => {
   useEffect(() => {
     
     if (reviewError) {
-      alert(reviewError);
-      dispatch(clearErrors());
+      toast.error(reviewError);
+      dispatch(clearCreateReviewErrors());
     }
 
     if (success) {
-      alert("Review Submitted Successfully");
+      toast.success("Review Submitted Successfully");
       dispatch(createReviewStatusReset());
     }
     dispatch(getProductDetails(params));
@@ -69,6 +70,7 @@ const ProductDetails = () => {
 
   const addToCartHandler = () => {
     dispatch(addItemsTocart(id, quantity));
+    toast.success("Item added to cart");
   };
 
   const options = {
@@ -113,7 +115,7 @@ const ProductDetails = () => {
                     >
                       -
                     </button>
-                    <span>{quantity}</span>
+                    <input readOnly type="number" value={quantity} />
                     <button
                       onClick={() =>
                         setQuantity((quantity) =>

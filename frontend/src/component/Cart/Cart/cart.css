@@ -71,14 +71,15 @@
     background-color: rgba(0, 0, 0, 0.767);
   }
   
-  .cartInput > span {
-    padding: 0.5vmax;
-    width: 2vmax;
+  .cartInput > input {
+    border: none;
+    width: 1vmax;
     text-align: center;
     outline: none;
     font: 400 0.8vmax "Roboto";
     color: rgba(0, 0, 0, 0.74);
   }
+  
   
   .cartSubtotal {
     display: flex;
